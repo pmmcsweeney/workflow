@@ -4,8 +4,12 @@
   "description": "Workflow test",
   "repository": {
     "type": "git",
-    "url": "?.git"
+    "url": "https://github.com/pmmcsweeney/workflow.git"
   },
   "author": "Patrick McSweeney",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.8"
+  }
 }
