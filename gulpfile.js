@@ -9,6 +9,10 @@ gulp.task('log', function() {
 	gutil.log("Workflow generate: START");
 });
 
+gulp.task('notify-updates', function() {
+	console.log('assets updated');
+});
+
 var jsSources = ['components/scripts/script1.js','components/scripts/script2.js','components/scripts/script3.js'];
 var sassSources = ['components/sass/style.scss'];
 
@@ -29,3 +33,10 @@ gulp.task('sass', function() {
 		.on('error', gutil.log)
 		.pipe(gulp.dest('builds/development/css'))
 });
+
+gulp.task('watch', function() {
+	gulp.watch(jsSources, ['js', 'notify-updates']);
+	gulp.watch(sassSources, ['sass', 'notify-updates']);
+});
+
+gulp.task('default', ['log', 'js', 'sass']);
