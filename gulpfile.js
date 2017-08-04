@@ -37,6 +37,7 @@ gulp.task('sass', function() {
 gulp.task('watch', function() {
 	gulp.watch(jsSources, ['js', 'notify-updates']);
 	gulp.watch(sassSources, ['sass', 'notify-updates']);
+	gulp.watch('components/sass/partials/*.scss', ['sass', 'notify-updates']);
 });
 
-gulp.task('default', ['log', 'js', 'sass']);
+gulp.task('default', ['log', 'js', 'sass', 'watch']);
