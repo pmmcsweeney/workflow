@@ -6,7 +6,8 @@ var gutil = require('gulp-util'),
 	compass = require('gulp-compass')
 	connect = require('gulp-connect')
 	gulpif = require('gulp-if')
-	uglify = require('gulp-uglify');
+	uglify = require('gulp-uglify'),
+	htmlmin = require('gulp-htmlmin');
 
 var env,
 	jsSources,
@@ -61,7 +62,9 @@ gulp.task('sass', function() {
 });
 
 gulp.task('html', function() {
-	gulp.src(htmlSources)
+	gulp.src('builds/development/*.html')
+		.pipe(gulpif(env === "production", htmlmin({collapseWhitespace: true})))
+		.pipe(gulpif(env === "production", gulp.dest(outputDir)))
 		.pipe(connect.reload());
 });
 
@@ -76,7 +79,7 @@ gulp.task('watch', function() {
 	gulp.watch(jsSources, ['js', 'notify-updates']);
 	gulp.watch(sassSources, ['sass', 'notify-updates']);
 	gulp.watch('components/sass/partials/*.scss', ['sass', 'notify-updates']);
-	gulp.watch(htmlSources, ['html',  'notify-updates']);
+	gulp.watch('builds/development/*.html', ['html',  'notify-updates']);
 });
 
 gulp.task('default', ['log', 'js', 'sass', 'html', 'connect', 'watch']);
